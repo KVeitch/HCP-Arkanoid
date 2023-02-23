@@ -4,15 +4,11 @@ import {createBricks} from './helper'
 function App() {
   const [count, setCount] = useState(0)
   const bricks = createBricks();
-import Paddle from './components/Paddle/Paddle'
-
-function App() {
-
-
+// import Paddle from './components/Paddle/Paddle'
   console.log({bricks})
   return (
     <div className="App">
-      <Paddle />
+      {/* <Paddle /> */}
     </div>
   )
 }
