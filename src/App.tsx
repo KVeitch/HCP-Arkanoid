@@ -1,11 +1,14 @@
 import './App.css'
-import Paddle from './components/Paddle/Paddle'
+import React,  { useState} from 'react'
+import {createBricks} from './helper'
 
-function App() {
-
+const App= () => {
+  const [count, setCount] = useState(0)
+  const bricks = createBricks();
+  console.log({bricks})
   return (
     <div className="App">
-      <Paddle />
+      {/* <Paddle /> */}
     </div>
   )
 }
