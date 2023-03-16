@@ -8,7 +8,6 @@ import PURPLE_BRICK_IMAGE from './assets/images/brick-purple.png';
 // depending on canvas width
 const canvas: HTMLCanvasElement | null = document.querySelector('#playField');
 
-// Constants
 export const STAGE_PADDING = 10;
 export const STAGE_ROWS = 20;
 export const STAGE_COLS = 10;
@@ -44,4 +43,6 @@ export const BRICK_ENERGY: { [key: number]: number } = {
   5: 3 // Purple brick
 };
 
-export const BRICK_LAY_OUT = [1,1,2,3,1,1,2,0,0,0,1,1,2,1,2,1,0]
+export const BRICK_LAY_OUT = [3,3,3,3,3,3,3,3,3,3,3,
+                              2,2,2,2,2,2,2,2,2,2,2,
+                              1,1,1,1,1,1,1,1,1,1,1]
