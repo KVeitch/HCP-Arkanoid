@@ -1,16 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
 
-import PADDLE_IMAGE from './assets/images/paddle.png';
-import BALL_IMAGE from './assets/images/react.svg';
+import PADDLE_IMAGE from "./assets/images/paddle.png";
+import BALL_IMAGE from "./assets/images/react.svg";
 // import BALL_IMAGE from './assets/images/ball.png';
 
-import { Ball } from './components/Ball';
-import { Brick } from './components/Brick';
-import { CanvasView } from './components/CanvasView';
-import { Paddle } from './components/Paddle';
+import { Ball } from "./components/Ball";
+import { Brick } from "./components/Brick";
+import { CanvasView } from "./components/CanvasView";
+import { Paddle, PaddleFnType } from "./components/Paddle";
 
 import {
   PADDLE_SPEED,
@@ -20,33 +20,33 @@ import {
   BALL_SPEED,
   BALL_SIZE,
   BALL_STARTX,
-  BALL_STARTY
-} from './constants';
+  BALL_STARTY,
+} from "./constants";
 
-import { Collision } from './Collision';
-import { createBricks } from './helper';
+import { Collision } from "./Collision";
+import { createBricks } from "./helper";
 
 let gameOver = false;
 let score = 0;
 
 const setGameOver = (view: CanvasView) => {
-  view.drawInfo('Game Over!');
+  view.drawInfo("Game Over!");
   gameOver = false;
-}
+};
 
 const setGameWin = (view: CanvasView) => {
-  view.drawInfo('Game Won!');
+  view.drawInfo("Game Won!");
   gameOver = false;
-}
+};
 
 const gameLoop = (
   view: CanvasView,
   bricks: Brick[],
-  paddle: Paddle,
+  paddle: PaddleFnType,
   ball: Ball,
   collision: Collision
 ) => {
-  console.log('draw!');
+  console.log("draw!");
   view.clear();
   view.drawBricks(bricks);
   view.drawSprite(paddle);
@@ -55,8 +55,9 @@ const gameLoop = (
   ball.moveBall();
 
   if (
-    (paddle.isMovingLeft && paddle.pos.x > 0) ||
-    (paddle.isMovingRight && paddle.pos.x < view.canvas.width - paddle.width)
+    (paddle.isMovingLeft() && paddle.pos.x > 0) ||
+    (paddle.isMovingRight() &&
+      paddle.pos.x < view.canvas.width - paddle.width)
   ) {
     paddle.movePaddle();
   }
@@ -74,11 +75,11 @@ const gameLoop = (
   if (gameOver) return setGameOver(view);
 
   requestAnimationFrame(() => gameLoop(view, bricks, paddle, ball, collision));
-}
+};
 
 const startGame = (view: CanvasView) => {
   score = 0;
-  view.drawInfo('');
+  view.drawInfo("");
   view.drawScore(0);
 
   const collision = new Collision();
@@ -91,19 +92,19 @@ const startGame = (view: CanvasView) => {
     BALL_IMAGE
   );
 
-  const paddle = new Paddle(
-    PADDLE_SPEED,
-    PADDLE_WIDTH,
-    PADDLE_HEIGHT,
-    {
+  const paddle = Paddle({
+    speed: PADDLE_SPEED,
+    width: PADDLE_WIDTH,
+    height: PADDLE_HEIGHT,
+    position: {
       x: PADDLE_STARTX,
-      y: view.canvas.height - PADDLE_HEIGHT - 5
+      y: view.canvas.height - PADDLE_HEIGHT - 5,
     },
-    PADDLE_IMAGE
-  );
+    img: PADDLE_IMAGE,
+  });
 
   gameLoop(view, bricks, paddle, ball, collision);
-}
+};
 
-const view = new CanvasView('#playField');
+const view = new CanvasView("#playField");
 view.initStartButton(startGame);
