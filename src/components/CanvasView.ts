@@ -1,6 +1,7 @@
 import { Brick } from './Brick';
 import { Paddle } from '.Paddle';
 import { Ball } from '.Ball';
+import { PaddleFnType } from './Paddle';
 
 export class CanvasView {
   canvas: HTMLCanvasElement;
@@ -33,7 +34,7 @@ export class CanvasView {
     if (this.info) this.info.innerHTML = text;
   }
 
-  drawSprite(brick: Brick | Paddle | Ball): void {
+  drawSprite(brick: Brick | PaddleFnType | Ball): void {
     if (!brick) return;
 
     this.context?.drawImage(
